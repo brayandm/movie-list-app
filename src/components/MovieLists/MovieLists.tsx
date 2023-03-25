@@ -1,58 +1,11 @@
 "use client";
 
 import styles from "./MovieLists.module.css";
-import { gql } from "graphql-request";
-import { client } from "@/lib/client";
-import { MY_EMAIL_KEY } from "@/constants/email";
 import { useState } from "react";
 import { MovieListType } from "@/types/MovieList";
 import { useRef } from "react";
 import Link from "next/link";
-
-const GetMovieLists = gql`
-    query GetMovieLists($email: String!) {
-        getMovieLists(email: $email) {
-            id
-            created_at
-            name
-            email
-        }
-    }
-`;
-
-const CreateList = gql`
-    mutation CreateList($input: CreateListInput!) {
-        createList(input: $input) {
-            id
-            created_at
-            name
-            email
-        }
-    }
-`;
-
-async function getMovieLists() {
-    const { getMovieLists } = await client.request<{
-        getMovieLists: MovieListType[];
-    }>(GetMovieLists, {
-        email: MY_EMAIL_KEY,
-    });
-
-    return getMovieLists;
-}
-
-async function createList(name: string) {
-    const { createList } = await client.request<{
-        createList: MovieListType;
-    }>(CreateList, {
-        input: {
-            name: name,
-            email: MY_EMAIL_KEY,
-        },
-    });
-
-    return createList;
-}
+import { getMovieLists, createList } from "@/lib/graphql";
 
 export default function MovieLists() {
     const [movieList, setMovieList] = useState<MovieListType[]>([]);

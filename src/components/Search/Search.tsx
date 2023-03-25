@@ -2,54 +2,8 @@
 
 import styles from "./Search.module.css";
 import { useState } from "react";
-import { gql } from "graphql-request";
-import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
-import { client } from "@/lib/client";
-import { type } from "os";
-
-const SearchMovieByTitle = gql`
-    query SearchMovieByTitle($title: String!) {
-        searchMovieByTitle(title: $title) {
-            Poster
-            Title
-            Type
-            Year
-            imdbID
-        }
-    }
-`;
-
-const AddMovie = gql`
-    mutation AddMovie($imdbId: String!, $listId: Int!) {
-        addMovie(imdbId: $imdbId, listId: $listId) {
-            id
-            created_at
-            imdb_id
-            movie_list_id
-        }
-    }
-`;
-
-async function searchMovieByTitle(title: string) {
-    const { searchMovieByTitle } = await client.request<{
-        searchMovieByTitle: MovieSearchItemType[];
-    }>(SearchMovieByTitle, {
-        title: title,
-    });
-
-    return searchMovieByTitle;
-}
-
-async function addMovie(listId: number, imdbId: string) {
-    const { addMovie } = await client.request<{
-        addMovie: MovieItemType[];
-    }>(AddMovie, {
-        imdbId: imdbId,
-        listId: listId,
-    });
-
-    return addMovie;
-}
+import { MovieSearchItemType } from "@/types/Movie";
+import { searchMovieByTitle, addMovie } from "@/lib/graphql";
 
 type Props = {
     listId: string;
