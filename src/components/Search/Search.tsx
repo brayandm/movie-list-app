@@ -46,6 +46,8 @@ export default function Search({
                 });
 
                 setAddOrRemove(addOrRemoveArray);
+            } else {
+                setSearchResults([]);
             }
         });
     }
@@ -91,66 +93,72 @@ export default function Search({
                             </button>
                         </div>
                         <div className={styles.list}>
-                            {searchResults.map((result, index) => (
-                                <div
-                                    key={result.imdbID}
-                                    className={styles.itemcontainer}
-                                >
-                                    <div className={styles.itemlist}>
-                                        {result.Title}
-                                    </div>
+                            {searchResults.length ? (
+                                searchResults.map((result, index) => (
+                                    <div
+                                        key={result.imdbID}
+                                        className={styles.itemcontainer}
+                                    >
+                                        <div className={styles.itemlist}>
+                                            {result.Title}
+                                        </div>
 
-                                    {addOrRemove[index] ? (
-                                        <button
-                                            onClick={() => {
-                                                const movieListItem =
-                                                    movieListItems.find(
-                                                        (movieListItem) => {
-                                                            return (
-                                                                movieListItem.imdb_id ===
-                                                                result.imdbID
-                                                            );
-                                                        }
+                                        {addOrRemove[index] ? (
+                                            <button
+                                                onClick={() => {
+                                                    const movieListItem =
+                                                        movieListItems.find(
+                                                            (movieListItem) => {
+                                                                return (
+                                                                    movieListItem.imdb_id ===
+                                                                    result.imdbID
+                                                                );
+                                                            }
+                                                        );
+
+                                                    if (!movieListItem) return;
+
+                                                    removeMovieFromList(
+                                                        movieListItem.id,
+                                                        parseInt(listId)
                                                     );
-
-                                                if (!movieListItem) return;
-
-                                                removeMovieFromList(
-                                                    movieListItem.id,
-                                                    parseInt(listId)
-                                                );
-                                                setAddOrRemove(
-                                                    addOrRemove.map((item, i) =>
-                                                        i === index
-                                                            ? false
-                                                            : item
-                                                    )
-                                                );
-                                            }}
-                                        >
-                                            Remove
-                                        </button>
-                                    ) : (
-                                        <button
-                                            onClick={() => {
-                                                addMovieToList(
-                                                    listId,
-                                                    result.imdbID
-                                                );
-                                                setAddOrRemove(
-                                                    addOrRemove.map((item, i) =>
-                                                        i === index
-                                                            ? true
-                                                            : item
-                                                    )
-                                                );
-                                            }}
-                                        >
-                                            Add
-                                        </button>
-                                    )}
-                                </div>
-                            ))}
+                                                    setAddOrRemove(
+                                                        addOrRemove.map(
+                                                            (item, i) =>
+                                                                i === index
+                                                                    ? false
+                                                                    : item
+                                                        )
+                                                    );
+                                                }}
+                                            >
+                                                Remove
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() => {
+                                                    addMovieToList(
+                                                        listId,
+                                                        result.imdbID
+                                                    );
+                                                    setAddOrRemove(
+                                                        addOrRemove.map(
+                                                            (item, i) =>
+                                                                i === index
+                                                                    ? true
+                                                                    : item
+                                                        )
+                                                    );
+                                                }}
+                                            >
+                                                Add
+                                            </button>
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                <h2>No results found</h2>
+                            )}
                         </div>
                     </div>
                 </>

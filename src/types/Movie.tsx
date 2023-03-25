@@ -15,6 +15,7 @@ export type MovieType = {
     Actors: string;
     imdbRating: string;
     imdbID: string;
+    Poster: string;
 };
 
 export type MovieSearchItemType = {

@@ -1,6 +1,6 @@
 import { gql } from "graphql-request";
 import { client } from "@/lib/client";
-import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
+import { MovieItemType, MovieSearchItemType, MovieType } from "@/types/Movie";
 
 import { MovieListType } from "@/types/MovieList";
 
@@ -95,6 +95,23 @@ const DeleteList = gql`
     }
 `;
 
+const SearchMovieById = gql`
+    query SearchMovieById($searchMovieByIdId: String!) {
+        searchMovieById(id: $searchMovieByIdId) {
+            Title
+            Year
+            Rated
+            Genre
+            Director
+            Actors
+            imdbRating
+            imdbID
+            Poster
+            imdbRating
+        }
+    }
+`;
+
 export async function getMovieList(listId: number) {
     const { getMovieList } = await client.request<{
         getMovieList: MovieListType;
@@ -174,4 +191,14 @@ export async function deleteList(deleteListId: number) {
     });
 
     return deleteList;
+}
+
+export async function searchMovieById(searchMovieByIdId: string) {
+    const { searchMovieById } = await client.request<{
+        searchMovieById: MovieType;
+    }>(SearchMovieById, {
+        searchMovieByIdId: searchMovieByIdId,
+    });
+
+    return searchMovieById;
 }
