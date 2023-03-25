@@ -6,6 +6,7 @@ import { MovieListType } from "@/types/MovieList";
 import { MovieItemType } from "@/types/Movie";
 import Search from "../Search";
 import { getMovieList, getMovieListItems, removeMovie } from "@/lib/graphql";
+import Link from "next/link";
 
 type Props = {
     listId: string;
@@ -45,22 +46,25 @@ export default function MovieList({ listId }: Props) {
                 <div className={styles.movieList}>
                     <h1>{movieList.name}</h1>
                     {movieListItems.map((movieListItem) => (
-                        <div
-                            className={styles.movie_card}
+                        <Link
+                            href={`/movie/${movieListItem.imdb_id}`}
                             key={movieListItem.id}
                         >
-                            <h2>{movieListItem.movie.Title}</h2>
-                            <button
-                                onClick={() =>
-                                    removeMovieFromList(
-                                        movieListItem.id,
-                                        parseInt(listId)
-                                    )
-                                }
-                            >
-                                Remove
-                            </button>
-                        </div>
+                            <div className={styles.movie_card}>
+                                <h2>{movieListItem.movie.Title}</h2>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        removeMovieFromList(
+                                            movieListItem.id,
+                                            parseInt(listId)
+                                        );
+                                    }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             )}
