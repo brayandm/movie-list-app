@@ -7,6 +7,7 @@ import { MY_EMAIL_KEY } from "@/constants/email";
 import { useState } from "react";
 import { MovieList } from "@/types/MovieList";
 import { useRef } from "react";
+import Link from "next/link";
 
 const GetMovieLists = gql`
     query GetMovieLists($email: String!) {
@@ -87,9 +88,11 @@ export default function MovieLists() {
                 </button>
             </form>
             {movieList.reverse().map((movieList) => (
-                <div className={styles.movie_list} key={movieList.id}>
-                    <h2> {movieList.name} </h2>
-                </div>
+                <Link href={`/my-lists/${movieList.id}`} key={movieList.id}>
+                    <div className={styles.movie_list}>
+                        <h2> {movieList.name} </h2>
+                    </div>
+                </Link>
             ))}
         </main>
     );
