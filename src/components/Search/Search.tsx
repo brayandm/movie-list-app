@@ -67,7 +67,12 @@ export default function Search({
                 <>
                     <div
                         className={styles.modal}
-                        onClick={() => setShowModal(false)}
+                        onClick={() => {
+                            setShowModal(false);
+                            setAddOrRemove([]);
+                            setSearchResults([]);
+                            setSearchTerm("");
+                        }}
                     ></div>
                     <div className={styles.modalContent}>
                         <div className={styles.searchbar}>

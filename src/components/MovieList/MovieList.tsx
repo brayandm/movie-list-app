@@ -17,11 +17,10 @@ export default function MovieList({ listId }: Props) {
     const [movieListItems, setMovieListItems] = useState<MovieItemType[]>([]);
 
     getMovieList(parseInt(listId)).then((movieList) => {
-        setMovieList(movieList);
-    });
-
-    getMovieListItems(parseInt(listId)).then((movieListItems) => {
-        setMovieListItems(movieListItems);
+        getMovieListItems(parseInt(listId)).then((movieListItems) => {
+            setMovieList(movieList);
+            setMovieListItems(movieListItems);
+        });
     });
 
     function removeMovieFromList(removeMovieId: number, listId: number) {
