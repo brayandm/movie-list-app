@@ -4,6 +4,7 @@ import styles from "./Search.module.css";
 import { useState } from "react";
 import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
 import { searchMovieByTitle, addMovie } from "@/lib/graphql";
+import useKeypress from "@/hooks/useKeypress";
 
 type Props = {
     listId: string;
@@ -56,6 +57,18 @@ export default function Search({
         console.log(listId, imdbId);
         addMovie(parseInt(listId), imdbId);
     }
+
+    useKeypress((key: string) => {
+        console.log(key);
+        if (key === "Escape") {
+            setShowModal(false);
+            setAddOrRemove([]);
+            setSearchResults([]);
+            setSearchTerm("");
+        } else if (key === "Enter") {
+            handleSearch();
+        }
+    });
 
     return (
         <>
