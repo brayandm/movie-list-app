@@ -37,7 +37,11 @@ export default function MovieList({ listId }: Props) {
 
     return (
         <>
-            <Search listId={listId} />
+            <Search
+                listId={listId}
+                movieListItems={movieListItems}
+                removeMovieFromList={removeMovieFromList}
+            />
             {movieList && (
                 <div className={styles.movieList}>
                     <h1>{movieList.name}</h1>

@@ -2,14 +2,20 @@
 
 import styles from "./Search.module.css";
 import { useState } from "react";
-import { MovieSearchItemType } from "@/types/Movie";
+import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
 import { searchMovieByTitle, addMovie } from "@/lib/graphql";
 
 type Props = {
     listId: string;
+    movieListItems: MovieItemType[];
+    removeMovieFromList: (removeMovieId: number, listId: number) => void;
 };
 
-export default function Search({ listId }: Props) {
+export default function Search({
+    listId,
+    movieListItems,
+    removeMovieFromList,
+}: Props) {
     const [showModal, setShowModal] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -18,12 +24,28 @@ export default function Search({ listId }: Props) {
         []
     );
 
+    const [addOrRemove, setAddOrRemove] = useState<boolean[]>([]);
+
     function handleSearch() {
         searchMovieByTitle(searchTerm).then((results) => {
             console.log(results);
             console.log(searchTerm);
             if (Array.isArray(results)) {
                 setSearchResults(results);
+
+                const addOrRemoveArray: boolean[] = [];
+
+                results.forEach((result) => {
+                    let found = false;
+                    movieListItems.forEach((movieListItem) => {
+                        if (movieListItem.imdb_id === result.imdbID) {
+                            found = true;
+                        }
+                    });
+                    addOrRemoveArray.push(found);
+                });
+
+                setAddOrRemove(addOrRemoveArray);
             }
         });
     }
@@ -64,7 +86,7 @@ export default function Search({ listId }: Props) {
                             </button>
                         </div>
                         <div className={styles.list}>
-                            {searchResults.map((result) => (
+                            {searchResults.map((result, index) => (
                                 <div
                                     key={result.imdbID}
                                     className={styles.itemcontainer}
@@ -72,16 +94,56 @@ export default function Search({ listId }: Props) {
                                     <div className={styles.itemlist}>
                                         {result.Title}
                                     </div>
-                                    <button
-                                        onClick={() =>
-                                            addMovieToList(
-                                                listId,
-                                                result.imdbID
-                                            )
-                                        }
-                                    >
-                                        Add
-                                    </button>
+
+                                    {addOrRemove[index] ? (
+                                        <button
+                                            onClick={() => {
+                                                const movieListItem =
+                                                    movieListItems.find(
+                                                        (movieListItem) => {
+                                                            return (
+                                                                movieListItem.imdb_id ===
+                                                                result.imdbID
+                                                            );
+                                                        }
+                                                    );
+
+                                                if (!movieListItem) return;
+
+                                                removeMovieFromList(
+                                                    movieListItem.id,
+                                                    parseInt(listId)
+                                                );
+                                                setAddOrRemove(
+                                                    addOrRemove.map((item, i) =>
+                                                        i === index
+                                                            ? false
+                                                            : item
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Remove
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={() => {
+                                                addMovieToList(
+                                                    listId,
+                                                    result.imdbID
+                                                );
+                                                setAddOrRemove(
+                                                    addOrRemove.map((item, i) =>
+                                                        i === index
+                                                            ? true
+                                                            : item
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Add
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
