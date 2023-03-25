@@ -59,11 +59,9 @@ export default function MovieLists() {
 
     const movieListName = useRef<HTMLInputElement>(null);
 
-    getMovieLists()
-        .then((data) => {
-            setMovieList(data);
-        })
-        .catch((error) => {});
+    getMovieLists().then((data) => {
+        setMovieList(data);
+    });
 
     function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
