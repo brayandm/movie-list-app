@@ -5,7 +5,7 @@ import { gql } from "graphql-request";
 import { client } from "@/lib/client";
 import { MY_EMAIL_KEY } from "@/constants/email";
 import { useState } from "react";
-import { MovieList } from "@/types/MovieList";
+import { MovieListType } from "@/types/MovieList";
 import { useRef } from "react";
 import Link from "next/link";
 
@@ -33,7 +33,7 @@ const CreateList = gql`
 
 async function getMovieLists() {
     const { getMovieLists } = await client.request<{
-        getMovieLists: MovieList[];
+        getMovieLists: MovieListType[];
     }>(GetMovieLists, {
         email: MY_EMAIL_KEY,
     });
@@ -43,7 +43,7 @@ async function getMovieLists() {
 
 async function createList(name: string) {
     const { createList } = await client.request<{
-        createList: MovieList;
+        createList: MovieListType;
     }>(CreateList, {
         input: {
             name: name,
@@ -55,7 +55,7 @@ async function createList(name: string) {
 }
 
 export default function MovieLists() {
-    const [movieList, setMovieList] = useState<MovieList[]>([]);
+    const [movieList, setMovieList] = useState<MovieListType[]>([]);
 
     const movieListName = useRef<HTMLInputElement>(null);
 
