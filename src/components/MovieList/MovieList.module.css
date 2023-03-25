@@ -4,3 +4,37 @@
     align-items: center;
     min-height: 100vh;
 }
+
+.movieList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.movie_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    max-height: 600px;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.movie_card:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+}

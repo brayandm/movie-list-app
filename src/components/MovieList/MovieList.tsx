@@ -5,6 +5,7 @@ import { gql } from "graphql-request";
 import { client } from "@/lib/client";
 import { useState } from "react";
 import { MovieListType } from "@/types/MovieList";
+import { MovieItemType } from "@/types/Movie";
 
 const GetMovieList = gql`
     query GetMovieList($getMovieListId: Int!) {
@@ -13,6 +14,27 @@ const GetMovieList = gql`
             created_at
             name
             email
+        }
+    }
+`;
+
+const GetMovieListItems = gql`
+    query GetMovieListItems($listId: Int!) {
+        getMovieListItems(listId: $listId) {
+            id
+            created_at
+            imdb_id
+            movie_list_id
+            movie {
+                Title
+                Year
+                Rated
+                Genre
+                Director
+                Actors
+                imdbRating
+                imdbID
+            }
         }
     }
 `;
@@ -27,6 +49,16 @@ async function getMovieList(listId: number) {
     return getMovieList;
 }
 
+async function getMovieListItems(listId: number) {
+    const { getMovieListItems } = await client.request<{
+        getMovieListItems: MovieItemType[];
+    }>(GetMovieListItems, {
+        listId: listId,
+    });
+
+    return getMovieListItems;
+}
+
 type Props = {
     listId: string;
 };
@@ -34,8 +66,14 @@ type Props = {
 export default function MovieList({ listId }: Props) {
     const [movieList, setMovieList] = useState<MovieListType | undefined>();
 
+    const [movieListItems, setMovieListItems] = useState<MovieItemType[]>([]);
+
     getMovieList(parseInt(listId)).then((movieList) => {
         setMovieList(movieList);
+    });
+
+    getMovieListItems(parseInt(listId)).then((movieListItems) => {
+        setMovieListItems(movieListItems);
     });
 
     return (
@@ -43,6 +81,14 @@ export default function MovieList({ listId }: Props) {
             {movieList && (
                 <div className={styles.movieList}>
                     <h1>{movieList.name}</h1>
+                    {movieListItems.map((movieListItem) => (
+                        <div
+                            className={styles.movie_card}
+                            key={movieListItem.id}
+                        >
+                            <h2>{movieListItem.movie.Title}</h2>
+                        </div>
+                    ))}
                 </div>
             )}
         </>
