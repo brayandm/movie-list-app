@@ -77,10 +77,6 @@ export default function MovieList({ listId }: Props) {
         setMovieListItems(movieListItems);
     });
 
-    if (!movieList) {
-        throw new Error("This is an error");
-    }
-
     return (
         <>
             <Search />
