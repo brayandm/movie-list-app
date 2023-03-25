@@ -6,6 +6,7 @@ import { client } from "@/lib/client";
 import { useState } from "react";
 import { MovieListType } from "@/types/MovieList";
 import { MovieItemType } from "@/types/Movie";
+import Search from "../Search";
 
 const GetMovieList = gql`
     query GetMovieList($getMovieListId: Int!) {
@@ -82,6 +83,7 @@ export default function MovieList({ listId }: Props) {
 
     return (
         <>
+            <Search />
             {movieList && (
                 <div className={styles.movieList}>
                     <h1>{movieList.name}</h1>
