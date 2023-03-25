@@ -44,15 +44,54 @@
     max-height: 500px;
     overflow: auto;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
 }
 
 .input {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 15px 32px;
+    margin: 0;
+    font-size: 16px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+    margin-right: 8px;
+}
+
+.searchbar {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 420px;
+    height: 65px;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    align-self: center;
+}
+
+.itemcontainer {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: auto;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex: 1;
+}
+
+.itemlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
 }

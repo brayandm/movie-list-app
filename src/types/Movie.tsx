@@ -16,3 +16,11 @@ export type MovieType = {
     imdbRating: string;
     imdbID: string;
 };
+
+export type MovieSearchItemType = {
+    Poster: string;
+    Title: string;
+    Type: string;
+    Year: string;
+    imdbID: string;
+};

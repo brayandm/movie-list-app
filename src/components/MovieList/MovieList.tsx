@@ -60,6 +60,19 @@ async function getMovieListItems(listId: number) {
     return getMovieListItems;
 }
 
+const RemoveMovie = gql`
+    mutation RemoveMovie($removeMovieId: Int!, $listId: Int!) {
+        removeMovie(id: $removeMovieId, listId: $listId)
+    }
+`;
+
+function removeMovie(removeMovieId: number, $listId: number) {
+    client.request(RemoveMovie, {
+        removeMovieId: removeMovieId,
+        listId: $listId,
+    });
+}
+
 type Props = {
     listId: string;
 };
@@ -77,9 +90,20 @@ export default function MovieList({ listId }: Props) {
         setMovieListItems(movieListItems);
     });
 
+    function removeMovieFromList(removeMovieId: number, listId: number) {
+        removeMovie(removeMovieId, listId);
+        setMovieListItems(
+            movieListItems.filter((movieListItem) => {
+                return movieListItem.id !== removeMovieId;
+            })
+        );
+    }
+
+    console.log(movieListItems);
+
     return (
         <>
-            <Search />
+            <Search listId={listId} />
             {movieList && (
                 <div className={styles.movieList}>
                     <h1>{movieList.name}</h1>
@@ -89,6 +113,16 @@ export default function MovieList({ listId }: Props) {
                             key={movieListItem.id}
                         >
                             <h2>{movieListItem.movie.Title}</h2>
+                            <button
+                                onClick={() =>
+                                    removeMovieFromList(
+                                        movieListItem.id,
+                                        parseInt(listId)
+                                    )
+                                }
+                            >
+                                Remove
+                            </button>
                         </div>
                     ))}
                 </div>
