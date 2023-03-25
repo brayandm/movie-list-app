@@ -89,6 +89,12 @@ const AddMovie = gql`
     }
 `;
 
+const DeleteList = gql`
+    mutation DeleteList($deleteListId: Int!) {
+        deleteList(id: $deleteListId)
+    }
+`;
+
 export async function getMovieList(listId: number) {
     const { getMovieList } = await client.request<{
         getMovieList: MovieListType;
@@ -158,4 +164,14 @@ export async function addMovie(listId: number, imdbId: string) {
     });
 
     return addMovie;
+}
+
+export async function deleteList(deleteListId: number) {
+    const { deleteList } = await client.request<{
+        deleteList: MovieItemType[];
+    }>(DeleteList, {
+        deleteListId: deleteListId,
+    });
+
+    return deleteList;
 }

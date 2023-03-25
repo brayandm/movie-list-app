@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MovieListType } from "@/types/MovieList";
 import { useRef } from "react";
 import Link from "next/link";
-import { getMovieLists, createList } from "@/lib/graphql";
+import { getMovieLists, createList, deleteList } from "@/lib/graphql";
 
 export default function MovieLists() {
     const [movieList, setMovieList] = useState<MovieListType[]>([]);
@@ -45,6 +45,16 @@ export default function MovieLists() {
                     <Link href={`/my-lists/${movieList.id}`} key={movieList.id}>
                         <div className={styles.movie_list}>
                             <h2> {movieList.name} </h2>
+                            <button
+                                className={styles.button}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    deleteList(movieList.id);
+                                }}
+                            >
+                                {" "}
+                                Remove{" "}
+                            </button>
                         </div>
                     </Link>
                 ))
