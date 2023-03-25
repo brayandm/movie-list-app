@@ -59,9 +59,11 @@ export default function MovieLists() {
 
     const movieListName = useRef<HTMLInputElement>(null);
 
-    getMovieLists().then((data) => {
-        setMovieList(data);
-    });
+    getMovieLists()
+        .then((data) => {
+            setMovieList(data);
+        })
+        .catch((error) => {});
 
     function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -87,13 +89,21 @@ export default function MovieLists() {
                     Create
                 </button>
             </form>
-            {movieList.reverse().map((movieList) => (
-                <Link href={`/my-lists/${movieList.id}`} key={movieList.id}>
-                    <div className={styles.movie_list}>
-                        <h2> {movieList.name} </h2>
-                    </div>
-                </Link>
-            ))}
+            {movieList.length ? (
+                movieList.reverse().map((movieList) => (
+                    <Link href={`/my-lists/${movieList.id}`} key={movieList.id}>
+                        <div className={styles.movie_list}>
+                            <h2> {movieList.name} </h2>
+                        </div>
+                    </Link>
+                ))
+            ) : (
+                <div>
+                    <br />
+                    <br />
+                    <h2> No movie lists yet </h2>
+                </div>
+            )}
         </main>
     );
 }

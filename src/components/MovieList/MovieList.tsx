@@ -68,13 +68,17 @@ export default function MovieList({ listId }: Props) {
 
     const [movieListItems, setMovieListItems] = useState<MovieItemType[]>([]);
 
-    getMovieList(parseInt(listId)).then((movieList) => {
-        setMovieList(movieList);
-    });
+    getMovieList(parseInt(listId))
+        .then((movieList) => {
+            setMovieList(movieList);
+        })
+        .catch((error) => {});
 
-    getMovieListItems(parseInt(listId)).then((movieListItems) => {
-        setMovieListItems(movieListItems);
-    });
+    getMovieListItems(parseInt(listId))
+        .then((movieListItems) => {
+            setMovieListItems(movieListItems);
+        })
+        .catch((error) => {});
 
     return (
         <>
