@@ -52,8 +52,7 @@ export default function MovieLists() {
                                     deleteList(movieList.id);
                                 }}
                             >
-                                {" "}
-                                Remove{" "}
+                                Remove
                             </button>
                         </div>
                     </Link>
