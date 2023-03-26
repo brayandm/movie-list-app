@@ -3,6 +3,7 @@ import { useState } from "react";
 import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
 import { searchMovieByTitle, addMovie } from "@/lib/graphql";
 import useKeypress from "@/hooks/useKeypress";
+import Link from "next/link";
 
 type Props = {
     listId: string;
@@ -110,9 +111,11 @@ export default function Search({
                                         key={result.imdbID}
                                         className={styles.itemcontainer}
                                     >
-                                        <div className={styles.itemlist}>
-                                            <h3>{result.Title}</h3>
-                                        </div>
+                                        <Link href={`/movie/${result.imdbID}`}>
+                                            <div className={styles.itemlist}>
+                                                <h3>{result.Title}</h3>
+                                            </div>
+                                        </Link>
 
                                         {addOrRemove[index] ? (
                                             <button
