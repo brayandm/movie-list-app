@@ -34,7 +34,7 @@ export default function MovieLists() {
                     type="text"
                     placeholder="Movie list name"
                 />
-                <button className={styles.button} type="submit">
+                <button className={styles.add_button} type="submit">
                     Create
                 </button>
             </form>
@@ -44,7 +44,7 @@ export default function MovieLists() {
                         <div className={styles.movie_list}>
                             <h2> {movieList.name} </h2>
                             <button
-                                className={styles.button}
+                                className={styles.remove_button}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     deleteList(movieList.id);
