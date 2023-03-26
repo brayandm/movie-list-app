@@ -46,7 +46,7 @@ export default function MovieList({ listId }: Props) {
             />
             {movieList && (
                 <div className={styles.movieList}>
-                    <h1>{movieList.name}</h1>
+                    <h1>List Name: {movieList.name}</h1>
                     {movieListItems.length ? (
                         movieListItems.map((movieListItem) => (
                             <Link
@@ -63,6 +63,7 @@ export default function MovieList({ listId }: Props) {
                                                 parseInt(listId)
                                             );
                                         }}
+                                        className={styles.remove_button}
                                     >
                                         Remove
                                     </button>

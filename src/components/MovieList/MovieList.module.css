@@ -19,14 +19,18 @@
     background-color: #fff;
 }
 
+.movieList h1 {
+    margin-bottom: 20px;
+}
+
 .movie_card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 400px;
     height: 100%;
+    min-width: 600px;
     max-height: 600px;
     padding: 1rem;
     margin: 1rem;
@@ -37,4 +41,23 @@
 
 .movie_card:hover {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+}
+
+.remove_button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.remove_button:hover {
+    background-color: #b33228;
+    color: white;
 }
