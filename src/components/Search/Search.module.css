@@ -39,7 +39,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
+    max-width: 700px;
     height: 80%;
     max-height: 500px;
     overflow: auto;
@@ -76,7 +76,7 @@
 .itemcontainer {
     display: flex;
     flex-direction: row;
-    overflow: auto;
+    justify-content: space-between;
 }
 
 .list {
@@ -93,4 +93,40 @@
     align-items: center;
     padding: 8px;
     border-bottom: 1px solid #ccc;
+}
+
+.add_button {
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.add_button:hover {
+    background-color: #3e8e41;
+}
+
+.remove_button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.remove_button:hover {
+    background-color: #b33228;
 }

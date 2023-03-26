@@ -27,11 +27,6 @@ export default function MovieList({ listId }: Props) {
 
     function removeMovieFromList(removeMovieId: number, listId: number) {
         removeMovie(removeMovieId, listId);
-        setMovieListItems(
-            movieListItems.filter((movieListItem) => {
-                return movieListItem.id !== removeMovieId;
-            })
-        );
     }
 
     console.log(movieListItems);

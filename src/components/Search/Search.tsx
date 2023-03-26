@@ -111,11 +111,12 @@ export default function Search({
                                         className={styles.itemcontainer}
                                     >
                                         <div className={styles.itemlist}>
-                                            {result.Title}
+                                            <h3>{result.Title}</h3>
                                         </div>
 
                                         {addOrRemove[index] ? (
                                             <button
+                                                className={styles.remove_button}
                                                 onClick={() => {
                                                     const movieListItem =
                                                         movieListItems.find(
@@ -147,6 +148,7 @@ export default function Search({
                                             </button>
                                         ) : (
                                             <button
+                                                className={styles.add_button}
                                                 onClick={() => {
                                                     addMovieToList(
                                                         listId,
