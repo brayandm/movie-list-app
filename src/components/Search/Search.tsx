@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./Search.module.css";
 import { useState } from "react";
 import { MovieItemType, MovieSearchItemType } from "@/types/Movie";
