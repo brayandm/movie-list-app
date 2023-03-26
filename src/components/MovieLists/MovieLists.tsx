@@ -20,9 +20,7 @@ export default function MovieLists() {
         e.preventDefault();
 
         if (movieListName.current) {
-            createList(movieListName.current.value).then((data) => {
-                setMovieList([...movieList, data]);
-            });
+            createList(movieListName.current.value);
         }
     }
 
