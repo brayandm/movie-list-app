@@ -15,6 +15,7 @@ export default function MoviePage({ imdbId }: Props) {
     const [movie, setMovie] = useState<MovieType | undefined>();
 
     searchMovieById(imdbId).then((movie) => {
+        if (!movie) throw new Error("Movie not found");
         setMovie(movie);
     });
 
